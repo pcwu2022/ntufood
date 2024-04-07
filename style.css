@@ -1,0 +1,11 @@
+body {
+    padding: 10px;
+}
+
+.row {
+    border: 1px solid black;
+    min-width: 150px;
+    width: max-content;
+    margin: 20px;
+    padding: 20px;
+}
