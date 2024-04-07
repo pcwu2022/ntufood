@@ -1,4 +1,4 @@
-import data from '../data.json' assert { type: "json" };
+import data from './data.json' assert { type: "json" };
 import { genreMapping, locationMapping } from './enum.js';
 
 const gebi = (id) => document.getElementById(id);
