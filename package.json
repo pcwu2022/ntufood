@@ -1,0 +1,18 @@
+{
+  "name": "ntufood",
+  "version": "1.0.0",
+  "description": "A website for NTU students to randomly choose restaurants",
+  "main": "index.js",
+  "scripts": {
+    "test": "migrate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ntufood"
+  },
+  "keywords": [
+    "food"
+  ],
+  "author": "pcwu2022",
+  "license": "ISC"
+}
