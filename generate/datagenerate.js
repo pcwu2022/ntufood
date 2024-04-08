@@ -5,8 +5,8 @@ const csv = require('csv-parser');
 const data = [];
 
 // File path
-const filePath = 'data.csv';
-const outputPath = 'data.json';
+const filePath = './generate/data.csv';
+const outputPath = './frontend/data.json';
 
 // Read CSV file and parse its data
 fs.createReadStream(filePath)

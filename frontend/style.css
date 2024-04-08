@@ -9,6 +9,12 @@ body {
     display: inline-block;
     margin: 20px;
     padding: 20px;
+    cursor: pointer;
+    transition-duration: 0.5s;
+}
+
+.row:active {
+    background-color: rgb(255,255,230);
 }
 
 #container {

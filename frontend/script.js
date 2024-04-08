@@ -33,13 +33,14 @@ const displayGenre = (genre) => {
 }
 
 const getPosition = (x, y) => {
-    if (x == undefined || y == undefined){
-        return [25, 121];
+    let ret = [parseFloat(x), parseFloat(y)];
+    if (ret[0] == undefined || ret[1] == undefined){
+        ret = [25.01744, 121.537372];
     }
-    if (parseFloat(x) == NaN || parseFloat(y) == undefined){
-        return [25, 121];
+    if (isNaN(ret[0]) || isNaN(ret[1])){
+        ret = [25.01744, 121.537372];
     }
-    return [parseFloat(x), parseFloat(y)];
+    return ret;
 }
 
 const randomSelect = (array) => {
@@ -49,7 +50,7 @@ const randomSelect = (array) => {
 const appendRow = (row) => {
     const newRow = cre("div");
     newRow.innerHTML = `
-        <h3><a href="${row.Link}">${row.Restaurant}</a></h3>
+        <h3><a href="https://www.google.com/maps/search/${row.Restaurant}/@${getPosition(row.X, row.Y)[0]},${getPosition(row.X, row.Y)[1]},17z">${row.Restaurant}</a></h3>
         區域：${displayLocation(row.Location)}<br>
         類別：${displayGenre(row.Genre)}<br>
         價格：${displayPrice(parseInt(row.Price))}

@@ -4,7 +4,7 @@
   "description": "A website for NTU students to randomly choose restaurants",
   "main": "datagenerate.js",
   "scripts": {
-    "generate": "node datagenerate.js"
+    "generate": "node ./generate/datagenerate.js"
   },
   "repository": {
     "type": "git",
