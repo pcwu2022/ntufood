@@ -7,6 +7,7 @@ const data = [];
 // File path
 const filePath = './generate/data.csv';
 const outputPath = './frontend/data.json';
+const outputAlternative = './frontend/data.js';
 
 // Read CSV file and parse its data
 fs.createReadStream(filePath)
@@ -17,4 +18,5 @@ fs.createReadStream(filePath)
     })
     .on('end', () => {
         fs.writeFileSync(outputPath, JSON.stringify(data, null, 4));
+        fs.writeFileSync(outputAlternative, `export default ${JSON.stringify(data, null, 4)}`);
     });

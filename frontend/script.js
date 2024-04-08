@@ -1,4 +1,5 @@
-import data from './data.json' assert { type: "json" };
+// import data from './data.json' assert { type: "json" };
+import data from './data.js';
 import { genreMapping, locationMapping } from './enum.js';
 import { Map } from './map.js';
 
