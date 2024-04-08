@@ -5,15 +5,14 @@ import { Map } from './map.js';
 
 const defaultCoordination = [25.01744, 121.537372];
 
-const gebi = (id) => document.getElementById(id);
-const cre = (tag) => document.createElement(tag);
-
 const map = new Map("map");
 
-const containerDiv = gebi("container");
-const submitButton = gebi("submit");
-const genreSelect = gebi("genre");
-const locationSelect = gebi("location");
+const containerDiv = document.getElementById("container");
+const submitButton = document.getElementById("submit");
+const genreSelect = document.getElementById("genre");
+const locationSelect = document.getElementById("location");
+
+/** Display Functions **/
 
 const clearContainer = () => {
     containerDiv.innerHTML = "";
@@ -55,7 +54,7 @@ const randomSelect = (array) => {
 }
 
 const appendRow = (row, withMarker=true) => {
-    const newRow = cre("div");
+    const newRow = document.createElement("div");
     newRow.innerHTML = `
         <h3><a href="https://www.google.com/maps/search/${row.Restaurant}/@${getPosition(row.Coordinates)[0]},${getPosition(row.Coordinates)[1]},17z">${row.Restaurant}</a></h3>
         區域：${displayLocation(row.Location)}<br>
@@ -107,14 +106,9 @@ const handleSubmit = (withMarker=true) => {
     rows.forEach((row) => appendRow(row, withMarker));
 }
 
-
-
-
-
-// Add options to the select
-
+// Add options to the select menu
 const createGenreOption = (genre) => {
-    let option = cre("option");
+    let option = document.createElement("option");
     option.value = genre;
     option.innerHTML = displayGenre(genre);
     genreSelect.appendChild(option);
@@ -134,10 +128,9 @@ const genreSelectAdd = () => {
         }
     }
 }
-genreSelectAdd();
 
 const createLocationOption = (location) => {
-    let option = cre("option");
+    let option = document.createElement("option");
     option.value = location;
     option.innerHTML = displayLocation(location);
     locationSelect.appendChild(option);
@@ -176,6 +169,7 @@ genreSelect.addEventListener("change", () => {
 /** Execution **/
 
 // load select options
+genreSelectAdd();
 locationSelectAdd();
 
 // load default

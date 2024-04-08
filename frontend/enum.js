@@ -4,7 +4,9 @@ export const locationMapping = {
     "XinshengSouth": "新生南路",
     "Heping118": "118 巷",
     "Gongguan": "公館",
-    "School": "校內"
+    "School": "校內",
+    "Liuzhangli": "六張犁",
+    "Shida": "師大"
 };
 
 export const genreMapping = {
@@ -22,5 +24,11 @@ export const genreMapping = {
     "Vegetarian": "素食",
     "BreakfastBrunch": "早午餐",
     "Steak": "牛排館",
-    "Ramen": "拉麵店"
+    "Ramen": "拉麵店",
+    "SouthEastAsian": "東南亞料理",
+    "Dessert":"甜點店",
+    "LouMei":"滷味",
+    "Bar":"酒吧",
+    "Cafe":"咖啡廳",
+    "Buffet":"自助餐"
 }

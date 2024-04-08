@@ -2,8 +2,9 @@
   "name": "ntufood",
   "version": "1.0.1",
   "description": "A website for NTU students to randomly choose restaurants",
-  "main": "datagenerate.js",
+  "main": "index.js",
   "scripts": {
+    "server": "node index.js",
     "generate": "node ./generate/datagenerate.js"
   },
   "repository": {
@@ -16,6 +17,8 @@
   "author": "pcwu2022",
   "license": "ISC",
   "dependencies": {
-    "csv-parser": "^3.0.0"
-  }
+    "csv-parser": "^3.0.0",
+    "express": "^4.19.2"
+  },
+  "type": "module"
 }
