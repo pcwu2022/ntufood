@@ -3,6 +3,8 @@ import data from './data.js';
 import { genreMapping, locationMapping } from './enum.js';
 import { Map } from './map.js';
 
+const defaultCoordination = [25.01744, 121.537372];
+
 const gebi = (id) => document.getElementById(id);
 const cre = (tag) => document.createElement(tag);
 
@@ -33,13 +35,17 @@ const displayGenre = (genre) => {
     return (genreMapping[genre] == undefined)?genre:genreMapping[genre];
 }
 
-const getPosition = (x, y) => {
-    let ret = [parseFloat(x), parseFloat(y)];
+const getPosition = (coordinates) => {
+    if (coordinates == undefined){
+        return defaultCoordination;
+    }
+    let coo = coordinates.split(',');
+    let ret = [parseFloat(coo[0]), parseFloat(coo[1])];
     if (ret[0] == undefined || ret[1] == undefined){
-        ret = [25.01744, 121.537372];
+        ret = defaultCoordination;
     }
     if (isNaN(ret[0]) || isNaN(ret[1])){
-        ret = [25.01744, 121.537372];
+        ret = defaultCoordination;
     }
     return ret;
 }
@@ -48,31 +54,41 @@ const randomSelect = (array) => {
     return array[Math.floor(Math.random()*array.length)];
 }
 
-const appendRow = (row) => {
+const appendRow = (row, withMarker=true) => {
     const newRow = cre("div");
     newRow.innerHTML = `
-        <h3><a href="https://www.google.com/maps/search/${row.Restaurant}/@${getPosition(row.X, row.Y)[0]},${getPosition(row.X, row.Y)[1]},17z">${row.Restaurant}</a></h3>
+        <h3><a href="https://www.google.com/maps/search/${row.Restaurant}/@${getPosition(row.Coordinates)[0]},${getPosition(row.Coordinates)[1]},17z">${row.Restaurant}</a></h3>
         區域：${displayLocation(row.Location)}<br>
         類別：${displayGenre(row.Genre)}<br>
         價格：${displayPrice(parseInt(row.Price))}
     `;
-    newRow.position = getPosition(row.X, row.Y);
-    newRow.name = row.Restaurant;
+    newRow.position = getPosition(row.Coordinates);
+    newRow.name = row.Restaurant + ((getPosition(row.Coordinates) == defaultCoordination)?"（座標未設定）":"");
+    newRow.withMarker = false;
+    if (withMarker){
+        newRow.marker = map.addMarker(getPosition(row.Coordinates), row.Restaurant, false);
+        newRow.withMarker = true;
+    }
     newRow.addEventListener("click", (e) => {
-        map.addMarker(e.target.position, row.Restaurant, true);
-    });
+        map.panTo(e.target.position, 17);
+        if (!e.target.withMarker){
+            newRow.marker = map.addMarker(e.target.position, e.target.name, false);
+        }
+        newRow.marker._icon.classList.add('huechange');
+    })
     newRow.classList.add("row");
     containerDiv.appendChild(newRow);
 }
 
-submitButton.addEventListener("click", () => {
+const handleSubmit = (withMarker=true) => {
+    map.removeMarkers();
     clearContainer();
     let genre = genreSelect.value;
     let location = locationSelect.value;
     let rows = [];
     for (let row of data){
         if (location == "Random"){
-            location = randomSelect(locations);
+            location = "All";
         }
         if (genre == "Random"){
             genre = randomSelect(genres);
@@ -88,8 +104,12 @@ submitButton.addEventListener("click", () => {
 
     // shuffle the result
     rows = rows.sort((a, b) => (Math.random() - 0.5));
-    rows.forEach((row) => appendRow(row));
-});
+    rows.forEach((row) => appendRow(row, withMarker));
+}
+
+
+
+
 
 // Add options to the select
 
@@ -137,4 +157,26 @@ const locationSelectAdd = () => {
         }
     }
 }
+
+/** Event Handlers **/
+
+submitButton.addEventListener("click", () => {
+    handleSubmit();
+});
+
+locationSelect.addEventListener("change", () => {
+    handleSubmit();
+});
+
+genreSelect.addEventListener("change", () => {
+    handleSubmit();
+});
+
+
+/** Execution **/
+
+// load select options
 locationSelectAdd();
+
+// load default
+handleSubmit(false);

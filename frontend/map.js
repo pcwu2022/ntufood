@@ -1,7 +1,7 @@
 class Map {
     constructor(divName, position=[25.01744, 121.537372]){
         // create map
-        this.map = L.map('map').setView(position, 15);
+        this.map = L.map('map').setView(position, 16);
 
         // create markers
         this.markers = [];
@@ -21,6 +21,19 @@ class Map {
         if (panTo){
             this.map.panTo(position);
         }
+        return marker;
+    }
+
+    // pan to
+    panTo(position=[25.01744, 121.537372], zoom=16){
+        this.map.panTo(position);
+        // delay until the map is panned to the position and zoom
+        // setTimeout(() => this.map.setZoom(zoom), 300);
+    }
+
+    // remove markers on the list
+    removeMarkers(){
+        this.markers.forEach((marker) => this.map.removeLayer(marker));
     }
 }
 
