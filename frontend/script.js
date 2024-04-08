@@ -1,8 +1,11 @@
 import data from './data.json' assert { type: "json" };
 import { genreMapping, locationMapping } from './enum.js';
+import { Map } from './map.js';
 
 const gebi = (id) => document.getElementById(id);
 const cre = (tag) => document.createElement(tag);
+
+const map = new Map("map");
 
 const containerDiv = gebi("container");
 const submitButton = gebi("submit");
@@ -29,6 +32,16 @@ const displayGenre = (genre) => {
     return (genreMapping[genre] == undefined)?genre:genreMapping[genre];
 }
 
+const getPosition = (x, y) => {
+    if (x == undefined || y == undefined){
+        return [25, 121];
+    }
+    if (parseFloat(x) == NaN || parseFloat(y) == undefined){
+        return [25, 121];
+    }
+    return [parseFloat(x), parseFloat(y)];
+}
+
 const randomSelect = (array) => {
     return array[Math.floor(Math.random()*array.length)];
 }
@@ -41,6 +54,11 @@ const appendRow = (row) => {
         類別：${displayGenre(row.Genre)}<br>
         價格：${displayPrice(parseInt(row.Price))}
     `;
+    newRow.position = getPosition(row.X, row.Y);
+    newRow.name = row.Restaurant;
+    newRow.addEventListener("click", (e) => {
+        map.addMarker(e.target.position, row.Restaurant, true);
+    });
     newRow.classList.add("row");
     containerDiv.appendChild(newRow);
 }

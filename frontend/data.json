@@ -4,27 +4,35 @@
         "Location": "XinshengSouth",
         "Genre": "Bento",
         "Price": "2",
-        "Link": "https://maps.app.goo.gl/8MYDmYiQo3MaApHd9"
+        "Link": "https://maps.app.goo.gl/8MYDmYiQo3MaApHd9",
+        "X": "25.011",
+        "Y": "121.537"
     },
     {
         "Restaurant": "稻咖哩",
         "Location": "XinshengSouth",
         "Genre": "Japanese",
         "Price": "3",
-        "Link": "https://maps.app.goo.gl/Du9AHfejRozj9To28"
+        "Link": "https://maps.app.goo.gl/Du9AHfejRozj9To28",
+        "X": "25.0121",
+        "Y": "121.5337"
     },
     {
         "Restaurant": "師大第一腿",
         "Location": "Heping118",
         "Genre": "Bento",
         "Price": "2",
-        "Link": "https://maps.app.goo.gl/7UNYRmBhHyiqK5aj6"
+        "Link": "https://maps.app.goo.gl/7UNYRmBhHyiqK5aj6",
+        "X": "25.0211",
+        "Y": "121.5437"
     },
     {
         "Restaurant": "鍋 in",
         "Location": "Gongguan",
         "Genre": "HotPot",
         "Price": "2",
-        "Link": "https://maps.app.goo.gl/z43Aj2vgCTw47YLT7"
+        "Link": "https://maps.app.goo.gl/z43Aj2vgCTw47YLT7",
+        "X": "25.111",
+        "Y": "121.547"
     }
 ]

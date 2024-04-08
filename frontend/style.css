@@ -6,6 +6,21 @@ body {
     border: 1px solid black;
     min-width: 150px;
     width: max-content;
+    display: inline-block;
     margin: 20px;
     padding: 20px;
+}
+
+#container {
+    max-height: 400px;
+    overflow-x: auto;
+    overflow-y: unset;
+    min-width: 100%;
+    max-width: none;
+    white-space: nowrap;
+}
+
+#map {
+    width: 100%;
+    height: 200px;
 }
