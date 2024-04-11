@@ -316,7 +316,7 @@ export default [
         "Location": "School",
         "Genre": "Bento",
         "Price": "1",
-        "Coordinates": "25.016217336568687, 121.54473472350674",
+        "Coordinates": "25.021684778969764, 121.545982267581",
         "Comments": ""
     },
     {
@@ -413,6 +413,238 @@ export default [
         "Genre": "FastFood",
         "Price": "2",
         "Coordinates": "25.01836479971548, 121.54021760822346",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "米澤製麵",
+        "Location": "Gongguan",
+        "Genre": "Japanese",
+        "Price": "",
+        "Coordinates": "25.012990315871306, 121.5357868720905",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "吉天元拉麵",
+        "Location": "Gongguan",
+        "Genre": "Japanese",
+        "Price": "",
+        "Coordinates": "25.016819064061266, 121.53285354721342",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "Big Apple mini",
+        "Location": "Gongguan",
+        "Genre": "FastFood",
+        "Price": "",
+        "Coordinates": "25.013070030255474, 121.53572242331143",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "孫東寶牛排",
+        "Location": "Gongguan",
+        "Genre": "American",
+        "Price": "1",
+        "Coordinates": "25.01826359388706, 121.5310917601049",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "SUKIYA",
+        "Location": "Gongguan",
+        "Genre": "Japanese",
+        "Price": "1",
+        "Coordinates": "25.01742076235664, 121.53196175694501",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "SUBWAY 台大店",
+        "Location": "Gongguan",
+        "Genre": "Light",
+        "Price": "2",
+        "Coordinates": "25.013185706521924, 121.53656063759351",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "小木屋鬆餅",
+        "Location": "School",
+        "Genre": "Light",
+        "Price": "1",
+        "Coordinates": "25.01570015060915, 121.53754292484452",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "烤丸日式食堂",
+        "Location": "Heping118",
+        "Genre": "Japanese",
+        "Price": "2",
+        "Coordinates": "25.022130525545627, 121.54233211808904",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "Stoppage Time 補時",
+        "Location": "Heping118",
+        "Genre": "Cafe",
+        "Price": "2",
+        "Coordinates": "25.02330191722886, 121.54227730668653",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "BeansLab coffee 豆研咖啡館",
+        "Location": "Heping118",
+        "Genre": "Cafe",
+        "Price": "2",
+        "Coordinates": "25.021932246106818, 121.54085263796179",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "壹之穴沾麵專門店",
+        "Location": "Heping118",
+        "Genre": "Ramen",
+        "Price": "4",
+        "Coordinates": "25.0221664320805, 121.54315665884448",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "蘇草salvia",
+        "Location": "Heping118",
+        "Genre": "Light",
+        "Price": "3",
+        "Coordinates": "25.021657954416757, 121.54245044546411",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "樂和牛排館",
+        "Location": "Heping118",
+        "Genre": "Steak",
+        "Price": "2",
+        "Coordinates": "25.024219823137816, 121.54280325682426",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "八分目珈琲",
+        "Location": "Heping118",
+        "Genre": "Cafe",
+        "Price": "2",
+        "Coordinates": "25.0228534472852, 121.5411740586598",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "文哥 巷仔口米粉湯",
+        "Location": "Heping118",
+        "Genre": "Noodles",
+        "Price": "1",
+        "Coordinates": "25.02264570513897, 121.54280753766747",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "道楽製麵所",
+        "Location": "Gongguan",
+        "Genre": "Ramen",
+        "Price": "3",
+        "Coordinates": "25.01329750789052, 121.53410177850562",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "スシロー壽司郎 台北公館店",
+        "Location": "Gongguan",
+        "Genre": "Japanese",
+        "Price": "",
+        "Coordinates": "25.014487105477194, 121.53436517708292",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "藍家割包",
+        "Location": "Gongguan",
+        "Genre": "Chinese",
+        "Price": "1",
+        "Coordinates": "25.015868602340515, 121.53255292685243",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "Mr. 雪腐 公館店",
+        "Location": "Gongguan",
+        "Genre": "Dessert",
+        "Price": "2",
+        "Coordinates": "25.016674698064097, 121.53052012147705",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "聞山咖啡台大店",
+        "Location": "XinshengSouth",
+        "Genre": "Cafe",
+        "Price": "2",
+        "Coordinates": "25.020877348298676, 121.53361315285201",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "溏老鴨平價小火鍋",
+        "Location": "XinshengSouth",
+        "Genre": "HotPot",
+        "Price": "2",
+        "Coordinates": "25.01963657499361, 121.53337530808909",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "蘇活義大利麵坊",
+        "Location": "XinshengSouth",
+        "Genre": "Italian",
+        "Price": "2",
+        "Coordinates": "25.02014029887478, 121.53352741151602",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "NoName無名咖哩 台大店",
+        "Location": "XinshengSouth",
+        "Genre": "Indian",
+        "Price": "2",
+        "Coordinates": "25.019728197979795, 121.5334506446073",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "光一肆號",
+        "Location": "XinshengSouth",
+        "Genre": "BreakfastBrunch",
+        "Price": "4",
+        "Coordinates": "25.019284304654814, 121.53356328618207",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "阿英滷肉飯",
+        "Location": "XinshengSouth",
+        "Genre": "Chinese",
+        "Price": "1",
+        "Coordinates": "25.019730757541257, 121.53200977619163",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "唯雞館",
+        "Location": "Heping118",
+        "Genre": "Chinese",
+        "Price": "",
+        "Coordinates": "",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "塊雞師食務所",
+        "Location": "Gongguan",
+        "Genre": "SouthEastAsian",
+        "Price": "2",
+        "Coordinates": "",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "五九麵館（公館店）",
+        "Location": "Gongguan",
+        "Genre": "Chinese",
+        "Price": "2",
+        "Coordinates": "25.016104369687202, 121.53184496546027",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "藝素佳",
+        "Location": "Gongguan",
+        "Genre": "Vegetarian",
+        "Price": "2",
+        "Coordinates": "25.01202963882365, 121.54086845042164",
         "Comments": ""
     }
 ]
