@@ -6,7 +6,8 @@ export const locationMapping = {
     "Gongguan": "公館",
     "School": "校內",
     "Liuzhangli": "六張犁",
-    "Shida": "師大"
+    "Shida": "師大",
+    "NTUST": "台科大"
 };
 
 export const genreMapping = {
@@ -30,5 +31,7 @@ export const genreMapping = {
     "LouMei":"滷味",
     "Bar":"酒吧",
     "Cafe":"咖啡廳",
-    "Buffet":"自助餐"
+    "Buffet":"自助餐",
+    "Indian":"印度",
+    "Light":"輕食"
 }

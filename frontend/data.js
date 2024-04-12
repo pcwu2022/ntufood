@@ -641,7 +641,7 @@ export default [
     },
     {
         "Restaurant": "藝素佳",
-        "Location": "Gongguan",
+        "Location": "NTUST",
         "Genre": "Vegetarian",
         "Price": "2",
         "Coordinates": "25.01202963882365, 121.54086845042164",
