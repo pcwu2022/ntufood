@@ -72,6 +72,7 @@ const appendRow = (row, withMarker=true) => {
         map.panTo(e.target.position, 17);
         if (!e.target.withMarker){
             newRow.marker = map.addMarker(e.target.position, e.target.name, false);
+            e.target.withMarker = true;
         }
         newRow.marker._icon.classList.add('huechange');
     })

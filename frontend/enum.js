@@ -33,5 +33,6 @@ export const genreMapping = {
     "Cafe":"咖啡廳",
     "Buffet":"自助餐",
     "Indian":"印度",
-    "Light":"輕食"
+    "Light":"輕食",
+    "Korean":"韓式料理"
 }
