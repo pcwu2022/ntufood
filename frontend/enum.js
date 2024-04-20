@@ -34,5 +34,8 @@ export const genreMapping = {
     "Buffet":"自助餐",
     "Indian":"印度",
     "Light":"輕食",
-    "Korean":"韓式料理"
+    "Korean":"韓式料理",
+    "HongKong":"港式料理",
+    "Exotic":"異國料理",
+    "French":"法式料理"
 }
