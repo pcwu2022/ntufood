@@ -1,6 +1,9 @@
 ## NTU 台大餐廳隨機選擇器
 Created by `pcwu2022`
 
+網站：[https://pcwu2022.github.io/ntufood/](https://pcwu2022.github.io/ntufood/)
+美食 Excel：[Excel](https://docs.google.com/spreadsheets/d/1k7IUK_FrCZbTatBzo8tfCVHp7Xrc1764eFq2fBQuScg/edit?gid=401944406#gid=401944406)
+
 你，每次吃飯都會選擇困難嗎？
 
 從水源市場走到台大正門再走回水源市場還是找不到自己要吃什麼嗎？
