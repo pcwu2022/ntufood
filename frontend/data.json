@@ -1178,7 +1178,7 @@
     {
         "Restaurant": "邦食堂",
         "Location": "Heping118",
-        "Genre": "Japanese",
+        "Genre": "Bento",
         "Price": "2",
         "Coordinates": "25.02305687369755, 121.54261841044342",
         "Comments": ""
@@ -1301,6 +1301,46 @@
         "Genre": "French",
         "Price": "4",
         "Coordinates": "25.024115012077875, 121.54263016617047",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "丼壽司",
+        "Location": "Gongguan",
+        "Genre": "Japanese",
+        "Price": "3",
+        "Coordinates": "25.0152868, 121.5321659",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "阿薄郎",
+        "Location": "Gongguan",
+        "Genre": "Chinese",
+        "Price": "3",
+        "Coordinates": "25.0145400, 121.5329075",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "燒肉政宗-中正店",
+        "Location": "Gongguan",
+        "Genre": "Japanese",
+        "Price": "3",
+        "Coordinates": "25.0149024, 121.5336857",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "點亮咖啡",
+        "Location": "Heping118",
+        "Genre": "Cafe",
+        "Price": "3",
+        "Coordinates": "25.0230535, 121.5414269",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "小旺號",
+        "Location": "Gongguan",
+        "Genre": "FastFood",
+        "Price": "2",
+        "Coordinates": "25.02595277910447, 121.54167791726142",
         "Comments": ""
     }
 ]
