@@ -1342,5 +1342,13 @@ export default [
         "Price": "2",
         "Coordinates": "25.02595277910447, 121.54167791726142",
         "Comments": ""
+    },
+    {
+        "Restaurant": "何家拉麵",
+        "Location": "Gongguan",
+        "Genre": "Ramen",
+        "Price": "2",
+        "Coordinates": "25.014079563907988, 121.53364532883488",
+        "Comments": ""
     }
 ]
