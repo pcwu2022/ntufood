@@ -6,8 +6,8 @@ body {
     line-height: 1.6;
 }
 
-img.huechange { 
-    filter: hue-rotate(120deg); 
+img.huechange {
+    filter: hue-rotate(120deg);
 }
 
 .row {
@@ -97,6 +97,32 @@ img.huechange {
     background-color: #0056b3;
 }
 
+/* Add responsive styles for mobile */
+@media screen and (max-width: 767px) {
+    #form {
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #form select {
+        width: 100%;
+        margin: 4px 0;
+    }
+
+    #form label {
+        display: block;
+        margin-top: 8px;
+    }
+
+    #form button {
+        width: 100%;
+        margin-top: 8px;
+    }
+}
+
 /* Footer styles */
 .footer-links {
     margin-top: 30px;
@@ -148,3 +174,4 @@ img.huechange {
         height: 200px;
     }
 }
+
