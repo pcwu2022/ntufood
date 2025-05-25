@@ -1344,11 +1344,19 @@ export default [
         "Comments": ""
     },
     {
-        "Restaurant": "何家拉麵",
+        "Restaurant": "好呷拉麵(公館店)",
         "Location": "Gongguan",
         "Genre": "Ramen",
         "Price": "2",
         "Coordinates": "25.014079563907988, 121.53364532883488",
+        "Comments": ""
+    },
+    {
+        "Restaurant": "好呷拉麵(師大店)",
+        "Location": "Shida",
+        "Genre": "Ramen",
+        "Price": "2",
+        "Coordinates": "25.02420166458898, 121.52923936743332",
         "Comments": ""
     }
 ]
