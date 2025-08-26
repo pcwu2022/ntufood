@@ -3,6 +3,8 @@ import data from './data.js';
 import { genreMapping, locationMapping } from './enum.js';
 import { Map } from './map.js';
 
+const PAGINATION = false;
+
 const defaultCoordination = [25.01744, 121.537372];
 
 const map = new Map("map");
@@ -177,6 +179,17 @@ const handleSubmit = (withMarker=true) => {
     };
 
     // Display first page initially
+    if (!PAGINATION){
+        for (let row of rows){
+            appendRow(row, withMarker);
+        }
+        if (rows.length == 0){
+            const noResult = document.createElement("div");
+            noResult.innerHTML = "無符合條件的餐廳";
+            containerDiv.appendChild(noResult);
+        }
+        return;
+    }
     displayPage(1);
 }
 
