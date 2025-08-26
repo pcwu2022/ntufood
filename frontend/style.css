@@ -159,19 +159,19 @@ img.huechange {
 /* Responsive map height */
 @media screen and (min-width: 768px) {
     #map {
-        height: 400px;
+        height: 500px;
     }
 }
 
 @media screen and (min-width: 1024px) {
     #map {
-        height: 500px;
+        height: 400px;
     }
 }
 
 @media screen and (max-width: 767px) {
     #map {
-        height: 300px;
+        height: 400px;
     }
 }
 
