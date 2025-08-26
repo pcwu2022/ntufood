@@ -1,6 +1,7 @@
 // import data from './data.json' assert { type: "json" };
 import data from './data.js';
 import { genreMapping, locationMapping } from './enum.js';
+import { aliasing } from './aliasing.js';
 import { Map } from './map.js';
 
 const PAGINATION = false;
@@ -85,23 +86,26 @@ const appendRow = (row, withMarker=true) => {
 const handleSubmit = (withMarker=true) => {
     map.removeMarkers();
     clearContainer();
-    let genre = genreSelect.value;
+    let rawGenre = genreSelect.value;
     let location = locationSelect.value;
     let rows = [];
-    for (let row of data){
-        if (location == "Random"){
-            location = "All";
+    let aliasGenre = rawGenre in aliasing ? [rawGenre, ...aliasing[rawGenre]] : [rawGenre];
+    for (let genre of aliasGenre){
+        for (let row of data){
+            if (location == "Random"){
+                location = "All";
+            }
+            if (genre == "Random"){
+                genre = randomSelect(genres);
+            }
+            if (genre !== row.Genre && genre !== "All"){
+                continue;
+            }
+            if (location !== row.Location && location !== "All"){
+                continue;
+            }
+            rows.push(row);
         }
-        if (genre == "Random"){
-            genre = randomSelect(genres);
-        }
-        if (genre !== row.Genre && genre !== "All"){
-            continue;
-        }
-        if (location !== row.Location && location !== "All"){
-            continue;
-        }
-        rows.push(row);
     }
 
     // shuffle the result
@@ -204,7 +208,7 @@ const createGenreOption = (genre) => {
 let genres = [];
 const genreSelectAdd = () => {
     createGenreOption("All");
-    createGenreOption("Random");
+    // createGenreOption("Random");
     for (let row of data){
         let genre = row.Genre;
         if (genres.indexOf(genre) == -1){
