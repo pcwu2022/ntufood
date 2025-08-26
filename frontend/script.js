@@ -5,6 +5,7 @@ import { aliasing } from './aliasing.js';
 import { Map } from './map.js';
 
 const PAGINATION = false;
+const BACKEND_BASE_URL = "https://ntufood-backend.onrender.com";
 
 const defaultCoordination = [25.01744, 121.537372];
 
@@ -56,6 +57,17 @@ const randomSelect = (array) => {
     return array[Math.floor(Math.random()*array.length)];
 }
 
+function ntufoodFetch(endpoint, bodyObj) {
+    return fetch(`${BACKEND_BASE_URL}${endpoint}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "origin": "https://pcwu2022.github.io"
+        },
+        body: JSON.stringify(bodyObj)
+    });
+}
+
 const appendRow = (row, withMarker=true) => {
     const newRow = document.createElement("div");
     newRow.innerHTML = `
@@ -78,6 +90,7 @@ const appendRow = (row, withMarker=true) => {
             e.target.withMarker = true;
         }
         newRow.marker._icon.classList.add('huechange');
+        ntufoodFetch("/click", { restaurant_name: e.target.name, order: 1 });
     })
     newRow.classList.add("row");
     containerDiv.appendChild(newRow);
@@ -88,6 +101,7 @@ const handleSubmit = (withMarker=true) => {
     clearContainer();
     let rawGenre = genreSelect.value;
     let location = locationSelect.value;
+    ntufoodFetch("/select", { type: rawGenre, location: location });
     let rows = [];
     let aliasGenre = rawGenre in aliasing ? [rawGenre, ...aliasing[rawGenre]] : [rawGenre];
     for (let genre of aliasGenre){
@@ -165,6 +179,7 @@ const handleSubmit = (withMarker=true) => {
                     e.target.withMarker = true;
                 }
                 newRow.marker._icon.classList.add('huechange');
+                ntufoodFetch("/click", { restaurant_name: e.target.name, order: 1 });
             })
             newRow.classList.add("row");
             resultsDiv.appendChild(newRow);
@@ -265,3 +280,5 @@ locationSelectAdd();
 
 // load default
 handleSubmit(false);
+
+ntufoodFetch("/view", { time: Math.floor(Date.now() / 1000) });
