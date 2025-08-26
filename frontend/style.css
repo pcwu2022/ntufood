@@ -204,3 +204,9 @@ img.huechange {
 #submit {
     display: none;
 }
+
+.header-icon {
+    width: 55px;
+    height: 60px;
+    vertical-align: middle;
+}
