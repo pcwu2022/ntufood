@@ -16,6 +16,8 @@ const submitButton = document.getElementById("submit");
 const genreSelect = document.getElementById("genre");
 const locationSelect = document.getElementById("location");
 
+let hotPicks = {};
+
 /** Display Functions **/
 
 const clearContainer = () => {
@@ -57,9 +59,9 @@ const randomSelect = (array) => {
     return array[Math.floor(Math.random()*array.length)];
 }
 
-function ntufoodFetch(endpoint, bodyObj) {
+function ntufoodFetch(endpoint, bodyObj, method="POST") {
     return fetch(`${BACKEND_BASE_URL}${endpoint}`, {
-        method: "POST",
+        method: method,
         headers: {
             "Content-Type": "application/json",
             "origin": "https://pcwu2022.github.io"
@@ -71,13 +73,15 @@ function ntufoodFetch(endpoint, bodyObj) {
 const appendRow = (row, withMarker=true) => {
     const newRow = document.createElement("div");
     newRow.innerHTML = `
-        <h3><a href="https://www.google.com/maps/search/${row.Restaurant}/@${getPosition(row.Coordinates)[0]},${getPosition(row.Coordinates)[1]},17z">${row.Restaurant}</a></h3>
+        <h3><a href="https://www.google.com/maps/search/${row.Restaurant}/@${getPosition(row.Coordinates)[0]},${getPosition(row.Coordinates)[1]},17z">${((row.Restaurant in hotPicks) ? `🔥${row.Restaurant}🔥` : row.Restaurant)}</a></h3>
         區域：${displayLocation(row.Location)}<br>
         類別：${displayGenre(row.Genre)}<br>
         價格：${displayPrice(parseInt(row.Price))}
     `;
     newRow.position = getPosition(row.Coordinates);
-    newRow.name = row.Restaurant + ((getPosition(row.Coordinates) == defaultCoordination)?"（座標未設定）":"");
+    newRow.name = 
+        row.Restaurant + 
+        ((getPosition(row.Coordinates) == defaultCoordination)?"（座標未設定）":"");
     newRow.withMarker = false;
     if (withMarker){
         newRow.marker = map.addMarker(getPosition(row.Coordinates), row.Restaurant, false);
@@ -93,6 +97,10 @@ const appendRow = (row, withMarker=true) => {
         ntufoodFetch("/click", { restaurant_name: e.target.name, order: 1 });
     })
     newRow.classList.add("row");
+    if (row.Restaurant in hotPicks) {
+        newRow.classList.add("hot-pick");
+        // console.log(row.Restaurant);
+    }
     containerDiv.appendChild(newRow);
 }
 
@@ -282,3 +290,19 @@ locationSelectAdd();
 handleSubmit(false);
 
 ntufoodFetch("/view", { time: Math.floor(Date.now() / 1000) });
+
+// load hot picks
+fetch(`${BACKEND_BASE_URL}/hot`, {
+    method: "GET"
+})
+.then(response => response.json())
+.then(data => {
+    for (let restaurant of data) {
+        if ("restaurant" in restaurant && "percentage" in restaurant) {
+            hotPicks[restaurant.restaurant] = restaurant.percentage;
+        }
+    }
+})
+.catch(error => {
+    console.error("Communication Error: ", error);
+});

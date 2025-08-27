@@ -216,3 +216,7 @@ img.huechange {
     display: inline-block;
     vertical-align: middle;
 }
+
+.hot-pick {
+    background-color: #ffedc0;
+}
