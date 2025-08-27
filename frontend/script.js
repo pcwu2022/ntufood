@@ -245,7 +245,7 @@ const createLocationOption = (location) => {
 let locations = [];
 const locationSelectAdd = () => {
     createLocationOption("All");
-    createLocationOption("Random");
+    // createLocationOption("Random");
     for (let row of data){
         let location = row.Location;
         if (locations.indexOf(location) == -1){

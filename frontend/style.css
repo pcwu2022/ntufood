@@ -1,5 +1,6 @@
 body {
     padding: 20px;
+    padding-top: 0px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     max-width: 1200px;
     margin: 0 auto;
@@ -208,5 +209,10 @@ img.huechange {
 .header-icon {
     width: 55px;
     height: 60px;
+    vertical-align: middle;
+}
+
+#title-div {
+    display: inline-block;
     vertical-align: middle;
 }
