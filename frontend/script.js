@@ -42,7 +42,7 @@ function createFilterButtons() {
     });
     // Add reset button
     const resetBtn = document.createElement('button');
-    resetBtn.innerHTML = '全部顯示';
+    resetBtn.innerHTML = '❌';
     resetBtn.className = 'filter-btn';
     resetBtn.onclick = () => {
         selectedTags = [];
