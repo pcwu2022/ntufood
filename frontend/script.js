@@ -12,6 +12,75 @@ const defaultCoordination = [25.01744, 121.537372];
 const map = new Map("map");
 
 const containerDiv = document.getElementById("container");
+const filtersDiv = document.createElement("div");
+filtersDiv.id = "filtersDiv";
+filtersDiv.style.margin = "10px 0";
+containerDiv.parentNode.insertBefore(filtersDiv, containerDiv);
+
+// Track selected tags for toggling
+let selectedTags = [];
+
+function hasTag(row, tag) {
+    if (tag === "HotPick") {
+        return row.Restaurant && hotPicks && row.Restaurant in hotPicks;
+    }
+    return tag in row && row[tag] === "O";
+}
+
+// Create filter buttons for each tag
+function createFilterButtons() {
+    filtersDiv.innerHTML = '';
+    Object.entries(filterMapping).forEach(([tag, { chinese, emoji }]) => {
+        const btn = document.createElement('button');
+        btn.innerHTML = `${emoji} ${chinese}`;
+        btn.className = 'filter-btn';
+        if (selectedTags.includes(tag)) {
+            btn.classList.add('active-filter');
+        }
+        btn.onclick = () => toggleTag(tag);
+        filtersDiv.appendChild(btn);
+    });
+    // Add reset button
+    const resetBtn = document.createElement('button');
+    resetBtn.innerHTML = '全部顯示';
+    resetBtn.className = 'filter-btn';
+    resetBtn.onclick = () => {
+        selectedTags = [];
+        createFilterButtons();
+        handleSubmit();
+    };
+    filtersDiv.appendChild(resetBtn);
+}
+
+function toggleTag(tag) {
+    if (selectedTags.includes(tag)) {
+        selectedTags = selectedTags.filter(t => t !== tag);
+    } else {
+        selectedTags.push(tag);
+    }
+    createFilterButtons();
+    filterByTags();
+}
+
+function filterByTags() {
+    map.removeMarkers();
+    clearContainer();
+    if (selectedTags.length === 0) {
+        handleSubmit();
+        return;
+    }
+    let filteredRows = data.filter(row => selectedTags.every(tag => hasTag(row, tag)));
+    if (filteredRows.length === 0) {
+        const noResult = document.createElement("div");
+        noResult.innerHTML = "無符合條件的餐廳";
+        containerDiv.appendChild(noResult);
+        return;
+    }
+    filteredRows.forEach(row => appendRow(row, true));
+}
+
+// Filter restaurants by tag
+// filterByTag is now replaced by filterByTags
 const submitButton = document.getElementById("submit");
 const genreSelect = document.getElementById("genre");
 const locationSelect = document.getElementById("location");
@@ -327,6 +396,9 @@ genreSelect.addEventListener("change", () => {
 genreSelectAdd();
 locationSelectAdd();
 
+// load filter buttons
+createFilterButtons();
+
 // load default
 handleSubmit(false);
 
@@ -343,6 +415,8 @@ fetch(`${BACKEND_BASE_URL}/hot`, {
             hotPicks[restaurant.restaurant] = restaurant.percentage;
         }
     }
+    // Re-create filter buttons after hotPicks loaded
+    createFilterButtons();
 })
 .catch(error => {
     console.error("Communication Error: ", error);

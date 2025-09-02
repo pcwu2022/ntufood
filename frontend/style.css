@@ -1,3 +1,30 @@
+/* Filter buttons styles */
+.filter-btn {
+    padding: 8px 16px;
+    margin: 4px 6px 4px 0;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    outline: none;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.filter-btn:hover {
+    background-color: #e0e7ff;
+    color: #0056b3;
+    border-color: #b3d1ff;
+}
+
+.filter-btn.active-filter {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #0056b3;
+    font-weight: bold;
+}
 body {
     padding: 20px;
     padding-top: 0px;
