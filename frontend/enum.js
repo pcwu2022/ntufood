@@ -39,3 +39,12 @@ export const genreMapping = {
     "Exotic":"異國料理",
     "French":"法式料理"
 }
+
+export const filterMapping = {
+    "HotPick": { chinese: "熱門推薦", emoji: "🔥" },
+    "OnePerson": { chinese: "一個人吃", emoji: "👤" },
+    "Gathering": { chinese: "多人聚餐", emoji: "🍻" },
+    "Dating": { chinese: "適合約會", emoji: "💐" },
+    "FastServe": { chinese: "快速上菜", emoji: "⚡" },
+    "SlowEat": { chinese: "慢慢吃", emoji: "🐌" }
+};

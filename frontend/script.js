@@ -1,6 +1,6 @@
 // import data from './data.json' assert { type: "json" };
 import data from './data.js';
-import { genreMapping, locationMapping } from './enum.js';
+import { genreMapping, locationMapping, filterMapping} from './enum.js';
 import { aliasing } from './aliasing.js';
 import { Map } from './map.js';
 
@@ -27,7 +27,7 @@ const clearContainer = () => {
 const displayPrice = (priceInt) => {
     let priceString = "";
     for (let i = 0; i < priceInt; i++){
-        priceString += "$";
+        priceString += "🪙";
     }
     return priceString;
 }
@@ -38,6 +38,45 @@ const displayLocation = (location) => {
 
 const displayGenre = (genre) => {
     return (genreMapping[genre] == undefined)?genre:genreMapping[genre];
+}
+
+const displayEmojis = (row) => {
+    const emojis = [];
+    for (let key in filterMapping) {
+        if (key in row && row[key] == "O") {
+            emojis.push(filterMapping[key].emoji);
+        }
+    }
+    if (row.Restaurant in hotPicks) {
+        emojis.push(filterMapping["HotPick"].emoji);
+    }
+    return emojis.join("");
+}
+
+const renderTags = (row, htmlObj) => {
+    const tags = [];
+    for (let key in filterMapping) {
+        if (key in row && row[key] == "O") {
+            tags.push(key);
+        }
+    }
+    if (row.Restaurant in hotPicks) {
+        tags.push("HotPick");
+    }
+    const tagsDiv = document.createElement("div");
+    htmlObj.appendChild(tagsDiv);
+    if (tags.length === 0) {
+        tagsDiv.innerHTML = "&nbsp;";
+        return;
+    }
+    for (let tag of tags) {
+        const { chinese, emoji } = filterMapping[tag];
+        const span = document.createElement("span");
+        span.innerHTML = emoji;
+        span.title = chinese; // This creates tooltip on hover
+        span.classList.add("tag");
+        tagsDiv.appendChild(span);
+    }
 }
 
 const getPosition = (coordinates) => {
@@ -73,18 +112,20 @@ function ntufoodFetch(endpoint, bodyObj, method="POST") {
 const appendRow = (row, withMarker=true) => {
     const newRow = document.createElement("div");
     newRow.innerHTML = `
-        <h3><a href="https://www.google.com/maps/search/${row.Restaurant}/@${getPosition(row.Coordinates)[0]},${getPosition(row.Coordinates)[1]},17z">${((row.Restaurant in hotPicks) ? `🔥${row.Restaurant}🔥` : row.Restaurant)}</a></h3>
+        <h3><a href="https://www.google.com/maps/search/${row.Restaurant}/@${getPosition(row.Coordinates)[0]},${getPosition(row.Coordinates)[1]},17z">${row.Restaurant}</a></h3>
         區域：${displayLocation(row.Location)}<br>
         類別：${displayGenre(row.Genre)}<br>
         價格：${displayPrice(parseInt(row.Price))}
     `;
+    renderTags(row, newRow);
     newRow.position = getPosition(row.Coordinates);
     newRow.name = 
         row.Restaurant + 
+        displayEmojis(row) +
         ((getPosition(row.Coordinates) == defaultCoordination)?"（座標未設定）":"");
     newRow.withMarker = false;
     if (withMarker){
-        newRow.marker = map.addMarker(getPosition(row.Coordinates), row.Restaurant, false);
+        newRow.marker = map.addMarker(getPosition(row.Coordinates), newRow.name, false);
         newRow.withMarker = true;
     }
     newRow.addEventListener("click", (e) => {
