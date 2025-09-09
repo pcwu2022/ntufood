@@ -59,24 +59,7 @@ function toggleTag(tag) {
         selectedTags.push(tag);
     }
     createFilterButtons();
-    filterByTags();
-}
-
-function filterByTags() {
-    map.removeMarkers();
-    clearContainer();
-    if (selectedTags.length === 0) {
-        handleSubmit();
-        return;
-    }
-    let filteredRows = data.filter(row => selectedTags.every(tag => hasTag(row, tag)));
-    if (filteredRows.length === 0) {
-        const noResult = document.createElement("div");
-        noResult.innerHTML = "無符合條件的餐廳";
-        containerDiv.appendChild(noResult);
-        return;
-    }
-    filteredRows.forEach(row => appendRow(row, true));
+    handleSubmit();
 }
 
 // Filter restaurants by tag
@@ -240,94 +223,20 @@ const handleSubmit = (withMarker=true) => {
         }
     }
 
+    // Handle Tags
+    if (selectedTags.length !== 0) {
+        rows = rows.filter(row => selectedTags.every(tag => hasTag(row, tag)));
+    }
+
     // shuffle the result
     rows = rows.sort((a, b) => (Math.random() - 0.5));
-    // Pagination implementation
-    const itemsPerPage = 5;
-    let currentPage = 1;
-    const totalPages = Math.ceil(rows.length / itemsPerPage);
-
-    const displayPage = (pageNumber) => {
-        // Clear existing content
-        clearContainer();
-        
-        // Calculate start and end indices
-        const startIndex = (pageNumber - 1) * itemsPerPage;
-        const endIndex = Math.min(startIndex + itemsPerPage, rows.length);
-        
-        // Create container for items with navigation
-        const itemsContainer = document.createElement("div");
-        itemsContainer.classList.add("items-container");
-        containerDiv.appendChild(itemsContainer);
-        
-        
-        
-        // Display current page items
-        const resultsDiv = document.createElement("div");
-        resultsDiv.classList.add("results");
-
-        // Add "Previous" button before items
-        if (pageNumber > 1) {
-            const prevButton = document.createElement("button");
-            prevButton.innerHTML = "◀"; // Left arrow
-            prevButton.classList.add("nav-arrow", "prev-arrow");
-            prevButton.addEventListener("click", () => displayPage(pageNumber - 1));
-            resultsDiv.appendChild(prevButton);
-        }
-
-        for (let i = startIndex; i < endIndex; i++) {
-            const newRow = document.createElement("div");
-            newRow.innerHTML = `
-                <h3><a href="https://www.google.com/maps/search/${rows[i].Restaurant}/@${getPosition(rows[i].Coordinates)[0]},${getPosition(rows[i].Coordinates)[1]},17z">${rows[i].Restaurant}</a></h3>
-                區域：${displayLocation(rows[i].Location)}<br>
-                類別：${displayGenre(rows[i].Genre)}<br>
-                價格：${displayPrice(parseInt(rows[i].Price))}
-            `;
-            newRow.position = getPosition(rows[i].Coordinates);
-            newRow.name = rows[i].Restaurant + ((getPosition(rows[i].Coordinates) == defaultCoordination)?"（座標未設定）":"");
-            newRow.withMarker = false;
-            if (withMarker){
-                newRow.marker = map.addMarker(getPosition(rows[i].Coordinates), rows[i].Restaurant, false);
-                newRow.withMarker = true;
-            }
-            newRow.addEventListener("click", (e) => {
-                map.panTo(e.target.position, 17);
-                if (!e.target.withMarker){
-                    newRow.marker = map.addMarker(e.target.position, e.target.name, false);
-                    e.target.withMarker = true;
-                }
-                newRow.marker._icon.classList.add('huechange');
-                ntufoodFetch("/click", { restaurant_name: e.target.name, order: 1 });
-            })
-            newRow.classList.add("row");
-            resultsDiv.appendChild(newRow);
-        }
-        
-        // Add "Next" button after items
-        if (pageNumber < totalPages) {
-            const nextButton = document.createElement("button");
-            nextButton.innerHTML = "▶"; // Right arrow
-            nextButton.classList.add("nav-arrow", "next-arrow");
-            nextButton.addEventListener("click", () => displayPage(pageNumber + 1));
-            resultsDiv.appendChild(nextButton);
-        }
-
-        itemsContainer.appendChild(resultsDiv);
-    };
-
-    // Display first page initially
-    if (!PAGINATION){
-        for (let row of rows){
-            appendRow(row, withMarker);
-        }
-        if (rows.length == 0){
-            const noResult = document.createElement("div");
-            noResult.innerHTML = "無符合條件的餐廳";
-            containerDiv.appendChild(noResult);
-        }
-        return;
+    rows.forEach((row) => appendRow(row, withMarker))
+    if (rows.length == 0){
+        const noResult = document.createElement("div");
+        noResult.innerHTML = "無符合條件的餐廳";
+        containerDiv.appendChild(noResult);
     }
-    displayPage(1);
+    return;
 }
 
 // Add options to the select menu
