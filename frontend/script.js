@@ -16,6 +16,12 @@ const filtersDiv = document.createElement("div");
 filtersDiv.id = "filtersDiv";
 filtersDiv.style.margin = "10px 0";
 containerDiv.parentNode.insertBefore(filtersDiv, containerDiv);
+const NEAR = 0.2; // km
+const PANSIZE = 17;
+const LOCATIONUPDATEINTERVAL = 1000; // ms
+
+let currentCoord = map.getCenter();
+let autoPan = false;
 
 // Track selected tags for toggling
 let selectedTags = [];
@@ -161,6 +167,20 @@ function ntufoodFetch(endpoint, bodyObj, method="POST") {
     });
 }
 
+const inRange = (coord1, coord2, range = 0.5) => {
+    const toRad = (value) => (value * Math.PI) / 180;
+    const R = 6371; // Radius of the Earth in km
+    const dLat = toRad(coord2[0] - coord1[0]);
+    const dLon = toRad(coord2[1] - coord1[1]);
+    const a = 
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(toRad(coord1[0])) * Math.cos(toRad(coord2[0])) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c; // Distance in km
+    return distance <= range;
+}
+
 const appendRow = (row, withMarker=true) => {
     const newRow = document.createElement("div");
     newRow.innerHTML = `
@@ -181,7 +201,8 @@ const appendRow = (row, withMarker=true) => {
         newRow.withMarker = true;
     }
     newRow.addEventListener("click", (e) => {
-        map.panTo(e.target.position, 17);
+        autoPan = false;
+        map.panTo(e.target.position, PANSIZE);
         if (!e.target.withMarker){
             newRow.marker = map.addMarker(e.target.position, e.target.name, false);
             e.target.withMarker = true;
@@ -216,7 +237,12 @@ const handleSubmit = (withMarker=true) => {
             if (genre !== row.Genre && genre !== "All"){
                 continue;
             }
-            if (location !== row.Location && location !== "All"){
+            if (location == "near"){
+                // console.log(currentCoord, getPosition(row.Coordinates));
+                if (!inRange(currentCoord, getPosition(row.Coordinates), NEAR)){
+                    continue;
+                }
+            } else if (location !== row.Location && location !== "All"){
                 continue;
             }
             rows.push(row);
@@ -272,6 +298,7 @@ const createLocationOption = (location) => {
 let locations = [];
 const locationSelectAdd = () => {
     createLocationOption("All");
+    createLocationOption("near");
     // createLocationOption("Random");
     for (let row of data){
         let location = row.Location;
@@ -329,4 +356,33 @@ fetch(`${BACKEND_BASE_URL}/hot`, {
 })
 .catch(error => {
     console.error("Communication Error: ", error);
+});
+
+// Update Location
+const updateLocation = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+        currentCoord = [position.coords.latitude, position.coords.longitude];
+        if (autoPan) {
+            map.panTo(currentCoord, PANSIZE);
+        }
+        map.updateCurrentMarker(currentCoord);
+    }, (error) => {
+        console.warn(`ERROR(${error.code}): ${error.message}`);
+        map.displayCurrentMarker(false);
+    });
+}
+
+const updateLocationBasedOnMapCenter = () => {
+    currentCoord = map.getCenter();
+}
+
+navigator.geolocation.getCurrentPosition((position) => {
+    currentCoord = [position.coords.latitude, position.coords.longitude];
+    map.panTo(currentCoord, PANSIZE);
+    map.displayCurrentMarker(true);
+    map.updateCurrentMarker(currentCoord);
+    setInterval(updateLocation, LOCATIONUPDATEINTERVAL);
+}, (error) => {
+    console.warn(`ERROR(${error.code}): ${error.message}`);
+    setInterval(updateLocationBasedOnMapCenter, LOCATIONUPDATEINTERVAL);
 });

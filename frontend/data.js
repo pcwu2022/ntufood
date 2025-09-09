@@ -2275,16 +2275,16 @@ export default [
         "Comments": ""
     },
     {
-        "Restaurant": "",
+        "Restaurant": "金晶雞",
         "Location": "NTUMed",
-        "Genre": "",
-        "Price": "",
-        "OnePerson": "",
+        "Genre": "Chinese",
+        "Price": "3",
+        "OnePerson": "O",
         "Dating": "",
-        "Gathering": "",
+        "Gathering": "O",
         "FastServe": "",
         "SlowEat": "",
-        "Coordinates": "",
+        "Coordinates": "25.044010309197517, 121.5262035644178",
         "Comments": ""
     }
 ]

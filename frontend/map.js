@@ -6,6 +6,15 @@ class Map {
         // create markers
         this.markers = [];
 
+        // current position marker
+        this.icon = L.icon({
+            iconUrl: './frontend/icon.png',
+            iconSize: [32, 40], // size of the icon
+        });
+        this.currentPositionMarker = L.marker(position, {icon: this.icon});
+        this.currentPositionMarker.bindPopup("現在位置");
+        this.currentPositionDisplay = false;
+
         // create tiles
         this.tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -34,6 +43,28 @@ class Map {
     // remove markers on the list
     removeMarkers(){
         this.markers.forEach((marker) => this.map.removeLayer(marker));
+    }
+
+    getCenter(){
+        const center = this.map.getCenter();
+        return [center.lat, center.lng];
+    }
+
+    updateCurrentMarker(position=[0,0]){
+        if (position[0] === 0 && position[1] === 0){
+            position = this.getCenter();
+        }
+        this.currentPositionMarker.setLatLng(position);
+    }
+
+    displayCurrentMarker(display=true){
+        if (display && !this.currentPositionDisplay){
+            this.currentPositionMarker.addTo(this.map);
+            this.currentPositionDisplay = true;
+        } else if (!display && this.currentPositionDisplay){
+            this.map.removeLayer(this.currentPositionMarker);
+            this.currentPositionDisplay = false;
+        }
     }
 }
 

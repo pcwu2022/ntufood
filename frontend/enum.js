@@ -8,7 +8,8 @@ export const locationMapping = {
     "Liuzhangli": "六張犁",
     "Shida": "師大",
     "NTUST": "台科大",
-    "NTUMed": "醫學院"
+    "NTUMed": "醫學院",
+    "near": "附近"
 };
 
 export const genreMapping = {
