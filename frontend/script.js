@@ -1,3 +1,35 @@
+// Back to Top Button Logic
+const backToTopBtn = document.getElementById('backToTopBtn');
+const mainDiv = document.getElementById('main');
+
+mainDiv.addEventListener('scroll', function() {
+    if (mainDiv.scrollTop > 100) {
+        backToTopBtn.style.display = 'block';
+    } else {
+        backToTopBtn.style.display = 'none';
+    }
+});
+
+backToTopBtn.addEventListener('click', function() {
+    mainDiv.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// If #main is not scrollable (e.g. on mobile), fallback to window scroll
+window.addEventListener('scroll', function() {
+    if (window.innerWidth < 900) {
+        if (window.scrollY > 100) {
+            backToTopBtn.style.display = 'block';
+        } else {
+            backToTopBtn.style.display = 'none';
+        }
+    }
+});
+
+backToTopBtn.addEventListener('click', function() {
+    if (window.innerWidth < 900) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+});
 // import data from './data.json' assert { type: "json" };
 import data from './data.js';
 import { genreMapping, locationMapping, filterMapping} from './enum.js';
@@ -12,10 +44,9 @@ const defaultCoordination = [25.01744, 121.537372];
 const map = new Map("map");
 
 const containerDiv = document.getElementById("container");
-const filtersDiv = document.createElement("div");
+const filtersDiv = document.getElementById("filtersDiv");
 filtersDiv.id = "filtersDiv";
 filtersDiv.style.margin = "10px 0";
-containerDiv.parentNode.insertBefore(filtersDiv, containerDiv);
 const NEAR = 0.2; // km
 const PANSIZE = 17;
 const LOCATIONUPDATEINTERVAL = 1000; // ms
@@ -70,7 +101,7 @@ function toggleTag(tag) {
 
 // Filter restaurants by tag
 // filterByTag is now replaced by filterByTags
-const submitButton = document.getElementById("submit");
+const submitButton = document.getElementById("submit") || document.createElement("button");
 const genreSelect = document.getElementById("genre");
 const locationSelect = document.getElementById("location");
 
@@ -315,10 +346,10 @@ const loadParameters = () => {
     // load from local storage
     let genre = localStorage.getItem("genre");
     let location = localStorage.getItem("location");
-    if (genre != null){
+    if (genre != null && genre != ""){
         genreSelect.value = genre;
     }
-    if (location != null){
+    if (location != null && location != ""){
         locationSelect.value = location;
     }
 }
@@ -409,3 +440,22 @@ navigator.geolocation.getCurrentPosition((position) => {
     console.warn(`ERROR(${error.code}): ${error.message}`);
     setInterval(updateLocationBasedOnMapCenter, LOCATIONUPDATEINTERVAL);
 });
+
+// Add window resize listener to check responsive breakpoint
+window.addEventListener('resize', function() {
+    // Check if window width crosses the 900px threshold
+    const width = window.innerWidth;
+    const wasBelow = window.lastWidth < 900;
+    const isBelow = width < 900;
+    
+    // Store current width for next comparison
+    window.lastWidth = width;
+    
+    // If we cross the threshold in either direction, reload the page
+    if ((wasBelow && !isBelow) || (!wasBelow && isBelow)) {
+        location.reload();
+    }
+});
+
+// Initialize lastWidth on page load
+window.lastWidth = window.innerWidth;

@@ -28,41 +28,57 @@
         crossorigin=""/>
     </head>
     <body>
-        <img src="frontend/ntufood_logo.png" alt="meme" width="0" height="0">
-        <div id="main">
-            <h2>
-                <img src="frontend/icon.png" alt="NTUFOOD icon" class="header-icon">
-                &nbsp;
-                <div id="title-div">
-                    NTUFOOD
-                    <br>台大美食隨機選擇器
+        <div id="header">
+            <img src="frontend/icon.png" alt="NTUFOOD icon" class="header-icon">
+            &nbsp;
+            <div id="title-div">NTUFOOD</div>
+            <img src="frontend/ntufood_logo.png" alt="meme" width="0" height="0">
+        </div>
+        <div id="content-wrapper">
+            <div id="main">
+                <div id="left-panel">
+                    <button id="backToTopBtn" title="回到頂部" style="display:none;">⏶</button>
+                    <div id="form-and-filters">
+                        <div id="form">
+                            <div class="input-group">
+                                <label for="genre">餐廳類別：</label>
+                                <select name="genre" id="genre">
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="location">餐廳位置：</label>
+                                <select name="location" id="location">
+                                </select>
+                            </div>
+                            <!-- <button id="submit">🔎</button> -->
+                        </div>
+                        <div id="filtersDiv"></div>
+                    </div>
+                    <div id="container"></div>
+                    <div id="disclaimer">註：地圖位置不一定準確，詳細內容請點擊下方卡片餐廳名稱連結進入 Google Maps 查看</div>
+                    <div>
+                        <span class="footer-creator">創作者：</span>
+                        <a href="https://pcwu2022.github.io/" class="footer-link">Po-Chun Wu</a>
+                        <span class="footer-sep">、</span>
+                        <a href="https://github.com/ergs0204" class="footer-link">@ergs0204</a>
+                    </div>
+                    <br>
+                    <div>
+                        <span class="footer-online">在線人數：</span>
+                        <span class="footer-count"><script id="_wauzns">var _wau = _wau || []; _wau.push(["classic", "7fae6yr09s", "zns"]);</script><script async src="//waust.at/c.js"></script></span>
+                    </div>
                 </div>
-                
-            </h2>
-            <!-- <br> -->
-            <div id="form">
-                <label for="genre">餐廳類別：</label>
-                <select name="genre" id="genre">
-                </select>
-                <!-- &nbsp;&nbsp;  -->
-                <label for="location">餐廳位置：</label>
-                <select name="location" id="location">
-                </select>
-                <!-- &nbsp;&nbsp;  -->
-                <button id="submit">🔎</button>
             </div>
-            <br>
             <div id="map"></div>
-            <div id="container"></div>
-            <div id="disclaimer">註：地圖位置不一定準確，詳細內容請點擊下方卡片餐廳名稱連結進入 Google Maps 查看</div>
         </div>
         <br>
-        <div class="footer-links">
-            <a href="https://docs.google.com/spreadsheets/d/1k7IUK_FrCZbTatBzo8tfCVHp7Xrc1764eFq2fBQuScg/edit?usp=sharing">在 Google Sheets 中編輯餐廳</a><br>
-            <a href="https://github.com/pcwu2022/ntufood">在 Github 上貢獻</a><br>
-            <div class="creator">創作者：<a href="https://pcwu2022.github.io/">Po-Chun Wu</a>、<a href="https://github.com/ergs0204">@ergs0204 (github)</a></div>
-            <div class="online-count">網站同時在線人數：<script id="_wauzns">var _wau = _wau || []; _wau.push(["classic", "7fae6yr09s", "zns"]);</script><script async src="//waust.at/c.js"></script></div>
-        </div>
+        <footer class="footer-links">
+            <div class="footer-row">
+                <a href="https://docs.google.com/spreadsheets/d/1k7IUK_FrCZbTatBzo8tfCVHp7Xrc1764eFq2fBQuScg/edit?usp=sharing" title="Google Sheets" class="footer-link">編輯餐廳</a>
+                <span class="footer-sep">|</span>
+                <a href="https://github.com/pcwu2022/ntufood" title="GitHub" class="footer-link">GitHub Repo</a>
+            </div>
+        </footer>
         
         <!-- Leaflet -->
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
