@@ -340,7 +340,7 @@ body {
 		position: fixed;
 		top: 70px;
 		left: 0;
-		z-index: 10;
+		z-index: 100;
 		min-height: 0;
 	}
 	#main {
