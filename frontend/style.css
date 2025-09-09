@@ -222,13 +222,15 @@ body {
 	flex-wrap: wrap;
 	gap: 8px;
 	margin-bottom: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 .filter-btn {
 	background: #ebebeb;
 	border: none;
 	border-radius: 6px;
-	padding: 8px 16px;
-	font-size: 1rem;
+	padding: 4px 8px;
+	font-size: 0.8rem;
 	cursor: pointer;
 	transition: background 0.2s;
 }
