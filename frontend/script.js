@@ -311,6 +311,26 @@ const locationSelectAdd = () => {
     }
 }
 
+const loadParameters = () => {
+    // load from local storage
+    let genre = localStorage.getItem("genre");
+    let location = localStorage.getItem("location");
+    if (genre != null){
+        genreSelect.value = genre;
+    }
+    if (location != null){
+        locationSelect.value = location;
+    }
+}
+
+const saveParameters = () => {
+    // save to local storage
+    localStorage.setItem("genre", genreSelect.value);
+    localStorage.setItem("location", locationSelect.value);
+}
+
+window.addEventListener("beforeunload", saveParameters);
+
 /** Event Handlers **/
 
 submitButton.addEventListener("click", () => {
@@ -334,6 +354,9 @@ locationSelectAdd();
 
 // load filter buttons
 createFilterButtons();
+
+// load parameters
+loadParameters();
 
 // load default
 handleSubmit(false);
