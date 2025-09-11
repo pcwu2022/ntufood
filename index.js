@@ -13,6 +13,16 @@ const port = 8080;
 
 app.use('/frontend', express.static(path.resolve('frontend')));
 
+// Serve manifest.json from the root directory
+app.get('/manifest.json', (req, res) => {
+    res.sendFile(path.join(__dirname, 'manifest.json'));
+});
+
+// Serve service-worker.js from the root directory
+app.get('/service-worker.js', (req, res) => {
+    res.sendFile(path.join(__dirname, 'service-worker.js'));
+});
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 })

@@ -7,6 +7,13 @@
         <link rel="icon" href="./frontend/icon.ico" type="image/x-icon">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- PWA Manifest & Theme -->
+        <link rel="manifest" href="/manifest.json">
+        <meta name="theme-color" content="#4CAF50">
+        <link rel="icon" href="frontend/icon.png" sizes="192x192">
+        <link rel="apple-touch-icon" href="frontend/ntufood_logo.png">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
         <meta name="description" content="你，每次吃飯都會選擇困難嗎？從水源市場走到台大正門再走回水源市場還是找不到自己要吃什麼嗎？輸入你想去的地方、選擇你想要的風格，系統會幫你隨機排序，幫你完成這個困擾你每一天的選擇！">
         
         <!-- Open Graph / Facebook -->
@@ -34,6 +41,34 @@
             <div id="title-div">NTUFOOD</div>
             <img src="frontend/ntufood_logo.png" alt="meme" width="0" height="0">
         </div>
+                    <script>
+                        // Register service worker for PWA
+                        if ('serviceWorker' in navigator) {
+                            window.addEventListener('load', function() {
+                                navigator.serviceWorker.register('/service-worker.js');
+                            });
+                        }
+
+                        // Optional: Listen for beforeinstallprompt to show custom install button
+                        let deferredPrompt;
+                        window.addEventListener('beforeinstallprompt', (e) => {
+                            e.preventDefault();
+                            deferredPrompt = e;
+                            // Show your custom install button here if you want
+                            // Example: document.getElementById('install-btn').style.display = 'block';
+                        });
+                        // Example install button logic (add a button with id="install-btn" if you want)
+                        /*
+                        document.getElementById('install-btn').addEventListener('click', () => {
+                            if (deferredPrompt) {
+                                deferredPrompt.prompt();
+                                deferredPrompt.userChoice.then((choiceResult) => {
+                                    deferredPrompt = null;
+                                });
+                            }
+                        });
+                        */
+                    </script>
         <div id="content-wrapper">
             <div id="main">
                 <div id="left-panel">
