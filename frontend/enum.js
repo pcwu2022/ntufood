@@ -12,6 +12,20 @@ export const locationMapping = {
     "near": "附近"
 };
 
+export const locationMapping_en = {
+    "All": "All",
+    "Random": "Random",
+    "XinshengSouth": "Xinsheng S.",
+    "Heping118": "Lane 118",
+    "Gongguan": "Gongguan",
+    "School": "On Campus",
+    "Liuzhangli": "Liuzhangli",
+    "Shida": "Shida",
+    "NTUST": "NTUST",
+    "NTUMed": "Medical",
+    "near": "Nearby"
+};
+
 export const genreMapping = {
     "All": "全部",
     "Random": "隨機",
@@ -42,6 +56,36 @@ export const genreMapping = {
     "French":"法式料理"
 }
 
+export const genreMapping_en = {
+    "All": "All",
+    "Random": "Random",
+    "Bento": "Bento / Fast",
+    "Japanese": "Japanese",
+    "HotPot": "Hot Pot",
+    "Chinese": "Chinese",
+    "FastFood": "Fast Food",
+    "American": "American",
+    "Italian": "Italian",
+    "Breakfast": "Breakfast",
+    "Noodles": "Noodles",
+    "Vegetarian": "Vegetarian",
+    "BreakfastBrunch": "Breakfast / Brunch",
+    "Steak": "Steak",
+    "Ramen": "Ramen",
+    "SouthEastAsian": "Southeast Asian",
+    "Dessert":"Dessert",
+    "LouMei":"Lu-Wei",
+    "Bar":"Bar",
+    "Cafe":"Cafe",
+    "Buffet":"Buffet",
+    "Indian":"Indian",
+    "Light":"Light Meals",
+    "Korean":"Korean",
+    "HongKong":"Hong Kong Style",
+    "Exotic":"Exotic",
+    "French":"French"
+}
+
 export const filterMapping = {
     "HotPick": { chinese: "熱門推薦", emoji: "🔥" },
     "OnePerson": { chinese: "一個人吃", emoji: "👤" },
@@ -49,4 +93,13 @@ export const filterMapping = {
     "Dating": { chinese: "適合約會", emoji: "💐" },
     "FastServe": { chinese: "快速上菜", emoji: "⚡" },
     "SlowEat": { chinese: "慢慢吃", emoji: "🐌" }
+};
+
+export const filterMapping_en = {
+    "HotPick": { english: "Hot Pick", emoji: "🔥" },
+    "OnePerson": { english: "Solo", emoji: "👤" },
+    "Gathering": { english: "Group", emoji: "🍻" },
+    "Dating": { english: "Dating", emoji: "💐" },
+    "FastServe": { english: "Fast", emoji: "⚡" },
+    "SlowEat": { english: "Leisure", emoji: "🐌" }
 };

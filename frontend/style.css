@@ -31,6 +31,41 @@ body {
 	letter-spacing: 2px;
 }
 
+/* Language toggle button in header: visually minimal and pinned to the right */
+#langToggle {
+	display: inline-block;
+	background-color: transparent;
+	border: none;
+	padding: 6px 10px;
+	cursor: pointer;
+	color: inherit;
+	font-size: 1rem;
+	border-radius: 6px;
+	outline: none;
+	position: absolute;
+	right: 24px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+#langToggle:hover {
+	background: rgba(0,0,0,0.04);
+}
+#langToggle:focus {
+	box-shadow: 0 0 0 3px rgba(33,150,243,0.15);
+}
+
+@media (max-width: 900px) {
+	#langToggle {
+		right: 16px;
+	}
+}
+
+@media (max-width: 600px) {
+	#langToggle {
+		right: 8px;
+	}
+}
+
 
 
 

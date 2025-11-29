@@ -2,21 +2,27 @@
 const backToTopBtn = document.getElementById('backToTopBtn');
 const mainDiv = document.getElementById('main');
 
-mainDiv.addEventListener('scroll', function() {
-    if (mainDiv.scrollTop > 100) {
-        backToTopBtn.style.display = 'block';
-    } else {
-        backToTopBtn.style.display = 'none';
-    }
-});
+if (mainDiv) {
+    mainDiv.addEventListener('scroll', function() {
+        if (!backToTopBtn) return;
+        if (mainDiv.scrollTop > 100) {
+            backToTopBtn.style.display = 'block';
+        } else {
+            backToTopBtn.style.display = 'none';
+        }
+    });
+}
 
-backToTopBtn.addEventListener('click', function() {
-    mainDiv.scrollTo({ top: 0, behavior: 'smooth' });
-});
+if (backToTopBtn && mainDiv) {
+    backToTopBtn.addEventListener('click', function() {
+        mainDiv.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
 
 // If #main is not scrollable (e.g. on mobile), fallback to window scroll
 window.addEventListener('scroll', function() {
     if (window.innerWidth < 900) {
+        if (!backToTopBtn) return;
         if (window.scrollY > 100) {
             backToTopBtn.style.display = 'block';
         } else {
@@ -25,14 +31,16 @@ window.addEventListener('scroll', function() {
     }
 });
 
-backToTopBtn.addEventListener('click', function() {
-    if (window.innerWidth < 900) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-});
+if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', function() {
+        if (window.innerWidth < 900) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
+}
 // import data from './data.json' assert { type: "json" };
 import data from './data.js';
-import { genreMapping, locationMapping, filterMapping} from './enum.js';
+import { genreMapping, locationMapping, filterMapping, genreMapping_en, locationMapping_en, filterMapping_en } from './enum.js';
 import { aliasing } from './aliasing.js';
 import { Map } from './map.js';
 
@@ -69,7 +77,8 @@ function createFilterButtons() {
     filtersDiv.innerHTML = '';
     Object.entries(filterMapping).forEach(([tag, { chinese, emoji }]) => {
         const btn = document.createElement('button');
-        btn.innerHTML = `${emoji} ${chinese}`;
+        const name = (LANG === 'en') ? (filterMapping_en[tag] && filterMapping_en[tag].english ? filterMapping_en[tag].english : chinese) : chinese;
+        btn.innerHTML = `${emoji} ${name}`;
         btn.className = 'filter-btn';
         if (selectedTags.includes(tag)) {
             btn.classList.add('active-filter');
@@ -107,6 +116,77 @@ const locationSelect = document.getElementById("location");
 
 let hotPicks = {};
 
+// Language support: 'zh' or 'en'
+let LANG = localStorage.getItem('lang') || 'zh';
+const langToggleBtn = document.getElementById('langToggle');
+if (langToggleBtn){
+    langToggleBtn.innerText = (LANG === 'en')? '中文' : 'EN';
+}
+
+const setLanguage = (lang) => {
+    LANG = lang;
+    localStorage.setItem('lang', LANG);
+    if (langToggleBtn){
+        langToggleBtn.innerText = (LANG === 'en')? '中文' : 'EN';
+    }
+    applyTranslations();
+    // rebuild selects and filters so labels refresh
+    const prevGenre = genreSelect.value;
+    const prevLocation = locationSelect.value;
+    genreSelect.innerHTML = '';
+    locationSelect.innerHTML = '';
+    genres = [];
+    locations = [];
+    genreSelectAdd();
+    locationSelectAdd();
+    // restore previous values when possible
+    if (Array.from(genreSelect.options).some(o => o.value === prevGenre)) genreSelect.value = prevGenre;
+    if (Array.from(locationSelect.options).some(o => o.value === prevLocation)) locationSelect.value = prevLocation;
+    createFilterButtons();
+    handleSubmit();
+}
+
+if (langToggleBtn){
+    langToggleBtn.addEventListener('click', () => {
+        setLanguage(LANG === 'en' ? 'zh' : 'en');
+    });
+}
+
+const applyTranslations = () => {
+    // Title
+    const titleDiv = document.getElementById('title-div');
+    if (titleDiv){
+        titleDiv.innerText = (LANG === 'en')? 'NTUFOOD' : 'NTUFOOD';
+    }
+    // Labels
+    const genreLabel = document.querySelector('label[for="genre"]');
+    const locationLabel = document.querySelector('label[for="location"]');
+    if (genreLabel) genreLabel.innerText = (LANG === 'en')? 'Genre:' : '餐廳類別：';
+    if (locationLabel) locationLabel.innerText = (LANG === 'en')? 'Location:' : '餐廳位置：';
+
+    // Disclaimer
+    const disclaimer = document.getElementById('disclaimer');
+    if (disclaimer){
+        disclaimer.innerText = (LANG === 'en')? 'Note: Map coordinates may be inaccurate. Click the restaurant name to view Google Maps.' : '註：地圖位置不一定準確，詳細內容請點擊下方卡片餐廳名稱連入 Google Maps 查看';
+    }
+
+    // Footer
+    const creator = document.querySelector('.footer-creator');
+    const online = document.querySelector('.footer-online');
+    const editLink = document.querySelector('a[title="Google Sheets"]');
+    const githubLink = document.querySelector('a[title="GitHub"]');
+    if (creator) creator.innerText = (LANG === 'en')? 'Creator:' : '創作者：';
+    if (online) online.innerText = (LANG === 'en')? 'Online:' : '在線人數：';
+    if (editLink) editLink.innerText = (LANG === 'en')? 'Edit restaurants' : '編輯餐廳';
+    if (githubLink) githubLink.innerText = (LANG === 'en')? 'GitHub Repo' : 'GitHub Repo';
+
+    // Back to top button
+    if (backToTopBtn) backToTopBtn.title = (LANG === 'en')? 'Back to top' : '回到頂部';
+}
+
+// initial translation apply
+applyTranslations();
+
 /** Display Functions **/
 
 const clearContainer = () => {
@@ -122,10 +202,16 @@ const displayPrice = (priceInt) => {
 }
 
 const displayLocation = (location) => {
+    if (LANG === 'en'){
+        return (locationMapping_en[location] == undefined)?location:locationMapping_en[location];
+    }
     return (locationMapping[location] == undefined)?location:locationMapping[location];
 }
 
 const displayGenre = (genre) => {
+    if (LANG === 'en'){
+        return (genreMapping_en[genre] == undefined)?genre:genreMapping_en[genre];
+    }
     return (genreMapping[genre] == undefined)?genre:genreMapping[genre];
 }
 
@@ -159,10 +245,11 @@ const renderTags = (row, htmlObj) => {
         return;
     }
     for (let tag of tags) {
-        const { chinese, emoji } = filterMapping[tag];
+        const emoji = filterMapping[tag].emoji;
+        const title = (LANG === 'en')? (filterMapping_en[tag] && filterMapping_en[tag].english ? filterMapping_en[tag].english : filterMapping[tag].chinese) : filterMapping[tag].chinese;
         const span = document.createElement("span");
         span.innerHTML = emoji;
-        span.title = chinese; // This creates tooltip on hover
+        span.title = title; // tooltip
         span.classList.add("tag");
         tagsDiv.appendChild(span);
     }
@@ -214,18 +301,21 @@ const inRange = (coord1, coord2, range = 0.5) => {
 
 const appendRow = (row, withMarker=true) => {
     const newRow = document.createElement("div");
+    const areaLabel = (LANG === 'en')? 'Location:' : '區域：';
+    const genreLabel = (LANG === 'en')? 'Genre:' : '類別：';
+    const priceLabel = (LANG === 'en')? 'Price:' : '價格：';
     newRow.innerHTML = `
         <h3><a href="https://www.google.com/maps/search/${row.Restaurant}/@${getPosition(row.Coordinates)[0]},${getPosition(row.Coordinates)[1]},17z">${row.Restaurant}</a></h3>
-        區域：${displayLocation(row.Location)}<br>
-        類別：${displayGenre(row.Genre)}<br>
-        價格：${displayPrice(parseInt(row.Price))}
+        ${areaLabel} ${displayLocation(row.Location)}<br>
+        ${genreLabel} ${displayGenre(row.Genre)}<br>
+        ${priceLabel} ${displayPrice(parseInt(row.Price))}
     `;
     renderTags(row, newRow);
     newRow.position = getPosition(row.Coordinates);
     newRow.name = 
         row.Restaurant + 
         displayEmojis(row) +
-        ((getPosition(row.Coordinates) == defaultCoordination)?"（座標未設定）":"");
+        ((getPosition(row.Coordinates) == defaultCoordination)? (LANG === 'en' ? ' (coordinates not set)' : '（座標未設定）') : "");
     newRow.withMarker = false;
     if (withMarker){
         newRow.marker = map.addMarker(getPosition(row.Coordinates), newRow.name, false);
@@ -290,7 +380,7 @@ const handleSubmit = (withMarker=true) => {
     rows.forEach((row) => appendRow(row, withMarker))
     if (rows.length == 0){
         const noResult = document.createElement("div");
-        noResult.innerHTML = "無符合條件的餐廳";
+        noResult.innerHTML = (LANG === 'en')? 'No restaurants match the filters' : '無符合條件的餐廳';
         containerDiv.appendChild(noResult);
     }
     return;
